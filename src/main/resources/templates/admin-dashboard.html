@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="with=device-width, initial-scale=1.0"/>
+    <title>Online Courses Platform</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+</head>
+<body>
+<section class="admin-header">
+    <nav class="nav">
+        <div class="button-group">
+            <button class="button" type="button" id="createCourse" data-toggle="modal" data-target="#formModal">Create
+                Course
+            </button>
+        </div>
+
+        <div class="search-bar">
+            <div class="search-options">
+                <select class="input-box" id="courseCategorySelect">
+                    <option value="">Select Category</option>
+                    <option value="Web Development">Web Development</option>
+                    <option value="Mobile Development">Mobile Development</option>
+                    <option value="Data Science">Data Science</option>
+                    <option value="Cloud Computing">Cloud Computing</option>
+                    <option value="Software Testing">Software Testing</option>
+                    <option value="Project Management">Project Management</option>
+                </select>
+            </div>
+            <div class="search-input">
+                <input type="text" class="input-box" placeholder="Search..."/>
+            </div>
+            <button class="search-icon">&#128269;</button>
+        </div>
+
+        <div class="nav-links">
+            <ul>
+                <li><a href="/logout">Log Out</a></li>
+            </ul>
+        </div>
+    </nav>
+</section>
+<section class="course">
+    <h1>Administrator Dashboard</h1>
+    <div id="cartContainer" class="row"></div>
+</section>
+
+<!-- Form Modal -->
+<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formModalLabel">Create or modify a course</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form">
+                    <input type="hidden" name="id" id="inputId"/>
+                    <label for="inputTitle">Title</label>
+                    <input type="text" class="form-control" id="inputTitle"/>
+                    <br/>
+                    <label for="inputCategory">Category</label>
+                    <select class="form-control" id="inputCategory">
+                        <option value="1">Web Development</option>
+                        <option value="2">Mobile Development</option>
+                        <option value="3">Data Science</option>
+                        <option value="4">Cloud Computing</option>
+                        <option value="5">Software Testing</option>
+                        <option value="6">Project Management</option>
+                    </select>
+                    <br/>
+                    <label for="inputContent">Content</label>
+                    <input type="text" class="form-control" id="inputContent"/>
+                    <br/>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="saveButton">Save</button>
+                <button type="button" class="btn btn-secondary" id="clearButton">Clear</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Course</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p>Are you sure you want to delete this course?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="confirmDeleteButton">Yes</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="footer-btn">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="card-template" type="text/template">
+    <div class="card-body">
+        <h5 class="card-title">{{courseTitle}}</h5>
+        <i class="fa fa-user" style="margin-right: 2px;"> &nbsp</i>{{courseAuthor}} &nbsp &nbsp
+        <i class="fa fa-calendar" style="margin-right: 2px;"> &nbsp</i>{{courseDate}}
+        <p class="card-text"><strong>Category:</strong> {{courseCategory.categoryName}}</p>
+        <p class="card-text"><strong>Content:</strong> {{courseContent}}</p>
+    </div>
+    {{#isAdminDashboard}}
+    <div class="card-body">
+        <button class="btn btn-success edit-button" data-toggle="modal" data-target="#formModal">
+            <i class="fa fa-edit"></i> Edit
+        </button>
+        <button class="btn btn-danger delete-button">
+            <i class="fa fa-trash"></i> Delete
+        </button>
+    </div>
+    {{/isAdminDashboard}}
+</script>
+
+<script src="/libraries/mustache.js"></script>
+<script src="/scripts/RestServiceModule.js"></script>
+<script src="/scripts/CourseApiModule.js"></script>
+<script src="/scripts/CardModule.js"></script>
+<script src="/scripts/TaskModule.js"></script>
+<script src="/scripts/AppModule.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
